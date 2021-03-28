@@ -25,12 +25,12 @@ jobs:
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: src/Modules/
+        PROJECT_FILE_PATH: src/Modules/Modules.csproj
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
         
     - name: Publish Nandel.Modules.AspNetCore
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: src/Modules.AspNetCore/
+        PROJECT_FILE_PATH: src/Modules.AspNetCore/Modules.AspNetCore.csproj
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
