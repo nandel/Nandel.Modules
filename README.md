@@ -1,7 +1,7 @@
 # Nandel.Modules
 
 This is a dotnet solution adds an abstraction layer of modules on top of default microsoft dependecy injection. 
-So it becomes easyers to manage and register dependencies between modules
+So it becomes easyer to manage and register dependencies between modules
 
 ## Instalation
 
@@ -25,11 +25,6 @@ class A : IModule, IHasStart, IHasStop
     public void RegisterServices(IServiceCollection services)
     {
         // Here comes module A registration
-    }
-    
-    public void Initilize(IServiceProvider services)
-    {
-        Console.WriteLine("Module A has been initialized");
     }
 
     public Task StartAsync(IServiceProvider services)
