@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
 
-        <IsPackable>false</IsPackable>
+        <IsPackable>true</IsPackable>
 
         <AssemblyName>Nandel.Modules.AspNetCore</AssemblyName>
 
@@ -18,24 +18,12 @@
         <Authors>github.com/nandel</Authors>
 
         <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
+
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.13" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-        <PackageReference Include="xunit" Version="2.4.1" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="coverlet.collector" Version="1.3.0">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="UnitTest1.cs" />
     </ItemGroup>
 
     <ItemGroup>
