@@ -1,4 +1,4 @@
-﻿namespace Modules.FunctionalTests.Services
+﻿namespace Modules.FunctionalTests.Samples.Services
 {
     public class ServiceC
     {

@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.FunctionalTests.Samples.Services;
 using Nandel.Modules;
 
-namespace Modules.FunctionalTests.Modules
+namespace Modules.FunctionalTests.Samples.Modules
 {
-    public class E : IModule
+    public class D : IModule
     {
         public void RegisterServices(IServiceCollection services)
         {
-            throw new System.NotImplementedException();
+            services.AddTransient<ServiceD>();
         }
     }
 }

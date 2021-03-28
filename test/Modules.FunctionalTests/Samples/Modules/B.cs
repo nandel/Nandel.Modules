@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using Modules.FunctionalTests.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.FunctionalTests.Samples.Services;
 using Nandel.Modules;
 
-namespace Modules.FunctionalTests.Modules
+namespace Modules.FunctionalTests.Samples.Modules
 {
     [DependsOn(typeof(C))]
     public class B : IModule

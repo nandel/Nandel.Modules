@@ -19,17 +19,17 @@ namespace Nandel.Modules.AspNetCore
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            foreach (var node in _dependencies)
+            foreach (var dependency in _dependencies)
             {
-                await node.StartAsync(_services);
+                await dependency.StartAsync(_services, cancellationToken);
             }
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            foreach (var node in _dependencies)
+            foreach (var dependency in _dependencies)
             {
-                await node.StopAsync(_services);
+                await dependency.StopAsync(_services, cancellationToken);
             }
         }
     }
