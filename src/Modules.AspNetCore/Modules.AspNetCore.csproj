@@ -20,6 +20,8 @@
         <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+        <AssemblyVersion>0.0.1</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
