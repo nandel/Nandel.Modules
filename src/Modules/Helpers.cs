@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,12 +26,16 @@ namespace Nandel.Modules
             if (dependencies is null)
             {
                 dependencies = new DependencyList(factory, moduleTypes);
+                dependencies.RegisterServices(services);
+                
                 services.AddSingleton<IDependencyNode>(dependencies);
                 
                 return services;
             }
 
             dependencies.AddRange(moduleTypes);
+            dependencies.RegisterServices(services);
+            
             return services;
         }
 
