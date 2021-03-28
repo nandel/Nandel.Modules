@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules", "src\Modules\Modules.csproj", "{A7AE84A6-8C9E-47FA-9BAB-1EFB025AB89B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.FunctionalTests", "test\Modules.FunctionalTests\Modules.FunctionalTests.csproj", "{D3233DEB-C31E-49B0-AC81-30A68B02C09D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.AspNetCore", "src\Modules.AspNetCore\Modules.AspNetCore.csproj", "{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7AE84A6-8C9E-47FA-9BAB-1EFB025AB89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7AE84A6-8C9E-47FA-9BAB-1EFB025AB89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7AE84A6-8C9E-47FA-9BAB-1EFB025AB89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7AE84A6-8C9E-47FA-9BAB-1EFB025AB89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3233DEB-C31E-49B0-AC81-30A68B02C09D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3233DEB-C31E-49B0-AC81-30A68B02C09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3233DEB-C31E-49B0-AC81-30A68B02C09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3233DEB-C31E-49B0-AC81-30A68B02C09D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

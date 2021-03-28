@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+
+        <AssemblyName>Nandel.Modules.AspNetCore</AssemblyName>
+
+        <RootNamespace>Nandel.Modules.AspNetCore</RootNamespace>
+
+        <OutputType>Library</OutputType>
+
+        <LangVersion>9</LangVersion>
+
+        <PackageVersion>0.0.1</PackageVersion>
+
+        <Authors>github.com/nandel</Authors>
+
+        <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.13" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="1.3.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="UnitTest1.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Modules\Modules.csproj" />
+    </ItemGroup>
+
+</Project>
