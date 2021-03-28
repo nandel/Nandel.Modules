@@ -34,13 +34,13 @@ class A : IModule, IHasStart, IHasStop
 
     public Task StartAsync(IServiceProvider services)
     {
-        Console.WriteLine("Module A has been initialized");
+        Console.WriteLine("Module A has been Started");
         return Task.CompletedTask;
     }
     
     public Task StopAsync(IServiceProvider services)
     {
-        Console.WriteLine("Module A has been initialized");
+        Console.WriteLine("Module A has been Stoped");
         return Task.CompletedTask;
     }
 }
