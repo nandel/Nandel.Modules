@@ -1,4 +1,4 @@
-name: .NET
+name: Publish Nuget
 
 on:
   workflow_dispatch:
@@ -28,3 +28,11 @@ jobs:
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/Nandel.Modules
+        
+    - name: Publish Nandel.Modules.AspNetCore
+      # You may pin to the exact commit or the version.
+      # uses: brandedoutcast/publish-nuget@c12b8546b67672ee38ac87bea491ac94a587f7cc
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+        # Filepath of the project to be packaged, relative to root of repository
+        PROJECT_FILE_PATH: src/Nandel.Modules.AspNetCore
