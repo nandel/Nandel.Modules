@@ -73,7 +73,7 @@ namespace Nandel.Modules
         /// <returns></returns>
         public static IServiceCollection AddModule<T>(this IServiceCollection services, IEnumerable<object> factoryServices)
         {
-            return AddModules(services, new ModuleFactory(factoryServices));
+            return AddModules(services, new ModuleFactory(factoryServices), typeof(T));
         }
 
         /// <summary>
