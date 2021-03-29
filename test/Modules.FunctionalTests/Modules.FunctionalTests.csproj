@@ -28,11 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Modules\E.cs" />
-      <Compile Remove="Services\Counter.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Folder Include="Samples" />
     </ItemGroup>
 

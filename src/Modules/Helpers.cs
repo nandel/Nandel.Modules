@@ -18,15 +18,15 @@ namespace Nandel.Modules
         /// <returns></returns>
         private static IServiceCollection AddModules(this IServiceCollection services, ModuleFactory factory, params Type[] moduleTypes)
         {
-            var dependencies = (DependencyList) services
+            var dependencies = (DependencyTree) services
                 .FirstOrDefault(x => x.ServiceType == typeof(IDependencyNode))
                 ?.ImplementationInstance
                 ;
 
             if (dependencies is null)
             {
-                dependencies = new DependencyList(factory, moduleTypes);
-                dependencies.RegisterServices(services);
+                dependencies = new DependencyTree(factory, moduleTypes);
+                dependencies.ConfigureServices(services);
                 
                 services.AddSingleton<IDependencyNode>(dependencies);
                 
@@ -34,7 +34,7 @@ namespace Nandel.Modules
             }
 
             dependencies.AddRange(moduleTypes);
-            dependencies.RegisterServices(services);
+            dependencies.ConfigureServices(services);
             
             return services;
         }
@@ -74,22 +74,6 @@ namespace Nandel.Modules
         public static IServiceCollection AddModule<T>(this IServiceCollection services, IEnumerable<object> factoryServices)
         {
             return AddModules(services, new ModuleFactory(factoryServices), typeof(T));
-        }
-
-        /// <summary>
-        /// Invoke module.Initialize(IServiceProvider) of every module registred
-        /// </summary>
-        /// <param name="services">Collection of services</param>
-        /// <returns></returns>
-        public static IServiceProvider InitializeModules(this IServiceProvider services)
-        {
-            var dependencies = services.GetServices<IDependencyNode>();
-            foreach (var dependency in dependencies)
-            {
-                dependency.Initialize(services);
-            }
-
-            return services;
         }
 
         /// <summary>

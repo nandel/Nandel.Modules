@@ -22,10 +22,10 @@ namespace Modules.FunctionalTests.Services
                 .Verifiable()
                 ;
             
-            var dependencies = new DependencyList(factory, typeof(ModuleWithConfiguration));
+            var dependencies = new DependencyTree(factory, typeof(ModuleWithConfiguration));
             
             // Act
-            dependencies.RegisterServices(services.Object);
+            dependencies.ConfigureServices(services.Object);
             
             // Assert
             services.Verify(x => x.Add(It.IsAny<ServiceDescriptor>()), Times.Exactly(2));
@@ -34,6 +34,8 @@ namespace Modules.FunctionalTests.Services
         [DependsOn(typeof(ModuleWithoutDependencies))]
         private class ModuleWithConfiguration : IModule
         {
+            // ReSharper disable once NotAccessedField.Local
+            // Used in UT
             private readonly IConfiguration _config;
 
             public ModuleWithConfiguration(IConfiguration config)
@@ -41,7 +43,7 @@ namespace Modules.FunctionalTests.Services
                 _config = config ?? throw new ArgumentNullException(nameof(config));
             }
             
-            public void RegisterServices(IServiceCollection services)
+            public void ConfigureServices(IServiceCollection services)
             {
                 services.AddSingleton(this);
             }
@@ -49,7 +51,7 @@ namespace Modules.FunctionalTests.Services
 
         private class ModuleWithoutDependencies : IModule
         {
-            public void RegisterServices(IServiceCollection services)
+            public void ConfigureServices(IServiceCollection services)
             {
                 services.AddSingleton(this);
             }

@@ -6,7 +6,7 @@ namespace Modules.FunctionalTests.Samples.Modules
 {
     public class D : IModule
     {
-        public void RegisterServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ServiceD>();
         }

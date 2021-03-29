@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Nandel.Modules
@@ -11,13 +10,13 @@ namespace Nandel.Modules
     /// <summary>
     /// List of DependencyNodes
     /// </summary>
-    public class DependencyList : List<IDependencyNode>, IDependencyNode
+    public class DependencyTree : List<IDependencyNode>, IDependencyNode
     {
         public IDependencyNode Root { get; }
         
         private readonly ModuleFactory _factory;
 
-        public DependencyList(ModuleFactory factory, params Type[] modulesTypes)
+        public DependencyTree(ModuleFactory factory, params Type[] modulesTypes)
         {
             _factory = factory;
             Root = this;
@@ -25,7 +24,7 @@ namespace Nandel.Modules
             AddRange(modulesTypes);
         }
 
-        public DependencyList(ModuleFactory factory, IDependencyNode root)
+        public DependencyTree(ModuleFactory factory, IDependencyNode root)
         {
             _factory = factory;
             Root = root;
@@ -69,26 +68,26 @@ namespace Nandel.Modules
 
             return null;
         }
-        
-        public void RegisterServices(IServiceCollection services)
-        {
-            foreach (var node in this)
-            {
-                node.RegisterServices(services);
-            }
-        }
 
-        public void Initialize(IServiceProvider services)
+        public IEnumerable<IDependencyNode> GetNodes()
         {
-            foreach (var node in this)
+            return this
+                .SelectMany(node => node.GetNodes())
+                .Distinct()
+                ;
+        }
+        
+        public void ConfigureServices(IServiceCollection services)
+        {
+            foreach (var node in GetNodes())
             {
-                node.Initialize(services);
+                node.ConfigureServices(services);
             }
         }
         
         public async Task StartAsync(IServiceProvider services, CancellationToken cancellationToken)
         {
-            foreach (var node in this)
+            foreach (var node in GetNodes())
             {
                 await node.StartAsync(services, cancellationToken);
             }
@@ -96,9 +95,17 @@ namespace Nandel.Modules
 
         public async Task StopAsync(IServiceProvider services, CancellationToken cancellationToken)
         {
-            foreach (var node in this)
+            foreach (var node in GetNodes())
             {
                 await node.StopAsync(services, cancellationToken);
+            }
+        }
+
+        public void Invoke<T>(params object[] args) where T : class
+        {
+            foreach (var node in GetNodes())
+            {
+                node.Invoke<T>(args);
             }
         }
     }

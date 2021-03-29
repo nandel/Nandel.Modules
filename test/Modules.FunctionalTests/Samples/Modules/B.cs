@@ -7,7 +7,7 @@ namespace Modules.FunctionalTests.Samples.Modules
     [DependsOn(typeof(C))]
     public class B : IModule
     {
-        public void RegisterServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ServiceB>();
         }

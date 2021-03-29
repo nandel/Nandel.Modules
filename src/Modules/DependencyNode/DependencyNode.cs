@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,17 +12,17 @@ namespace Nandel.Modules
     {
         public Type ModuleType { get; }
         public IDependencyNode Root { get; }
-        public DependencyList Dependencies { get; }
+        public DependencyTree Dependencies { get; }
 
         private readonly ModuleFactory _factory;
-
-        private bool _registredServices;
-        private bool _initialized;
-        private bool _started;
-        private bool _stoped;
+        private readonly IDictionary<Type, bool> _invoked = new Dictionary<Type, bool>();
         
         private object _moduleInstance;
 
+        private bool _registred;
+        private bool _started;
+        private bool _stoped;
+        
         public DependencyNode(ModuleFactory factory, Type moduleType, IDependencyNode root)
         {
             _factory = factory;
@@ -28,7 +30,7 @@ namespace Nandel.Modules
             ModuleType = moduleType;
             Root = root;
             
-            Dependencies = new DependencyList(factory, Root);
+            Dependencies = new DependencyTree(factory, Root);
         }
 
         public void AddDependencies()
@@ -62,35 +64,33 @@ namespace Nandel.Modules
 
             return Dependencies.FindNode(moduleType);
         }
-        
-        public void RegisterServices(IServiceCollection services)
-        {
-            if (_registredServices) return;
-            
-            _registredServices = true;
-            Dependencies.RegisterServices(services);
 
-            GetModuleInstance<IModule>().RegisterServices(services);
+        public IEnumerable<IDependencyNode> GetNodes()
+        {
+            return new List<IDependencyNode>(Dependencies.GetNodes()) 
+                { this }
+                .Distinct()
+                ;
         }
-
-        public void Initialize(IServiceProvider services)
+        
+        public void ConfigureServices(IServiceCollection services)
         {
-            if (_initialized) return;
+            if (_registred) return;
 
-            _initialized = true;
-            Dependencies.Initialize(services);
+            _registred = true;
             
-            GetModuleInstance<IHasInitialize>()?.Initialize(services);
+            Dependencies.ConfigureServices(services);
+            GetModuleInstance<IModule>().ConfigureServices(services);
         }
 
         public async Task StopAsync(IServiceProvider services, CancellationToken cancellationToken)
         {
             if (_stoped) return;
+
+            _started = false;
+            _stoped = true;
             
             cancellationToken.ThrowIfCancellationRequested();
-
-            _stoped = true;
-            _started = false;
 
             await (GetModuleInstance<IHasStop>()?.StopAsync(services, cancellationToken) ?? Task.CompletedTask);
             await Dependencies.StopAsync(services, cancellationToken);
@@ -98,15 +98,31 @@ namespace Nandel.Modules
 
         public async Task StartAsync(IServiceProvider services, CancellationToken cancellationToken)
         {
-            if (_started) return;
-            
-            cancellationToken.ThrowIfCancellationRequested();
+            if(_started) return;
 
             _started = true;
             _stoped = false;
+            
+            cancellationToken.ThrowIfCancellationRequested();
 
             await Dependencies.StartAsync(services, cancellationToken);
             await (GetModuleInstance<IHasStart>()?.StartAsync(services, cancellationToken) ?? Task.CompletedTask);
+        }
+
+        public void Invoke<T>(params object[] args) where T : class
+        {
+            if (!typeof(T).IsAssignableFrom(ModuleType)) return;
+            if (_invoked.TryGetValue(typeof(T), out var value) && value) return;
+
+            _invoked[typeof(T)] = true;
+            
+            var methods = typeof(T).GetMethods();
+            if (methods.Length != 1)
+            {
+                throw new InvalidOperationException("Module contracts can only define one method");
+            }
+
+            methods.First().Invoke(GetModuleInstance<T>(), args);
         }
     }
 }

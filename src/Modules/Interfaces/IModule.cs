@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Nandel.Modules
 {
@@ -12,6 +11,6 @@ namespace Nandel.Modules
         /// Register services for this module
         /// </summary>
         /// <param name="services"></param>
-        void RegisterServices(IServiceCollection services);
+        void ConfigureServices(IServiceCollection services);
     }
 }

@@ -8,18 +8,11 @@ using Nandel.Modules;
 namespace Modules.FunctionalTests.Samples.Modules
 {
     [DependsOn(typeof(D))]
-    public class C : IModule, IHasInitialize, IHasStart, IHasStop
+    public class C : IModule, IHasStart, IHasStop
     {
-        public void RegisterServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ServiceC>();
-        }
-
-
-        public void Initialize(IServiceProvider services)
-        {
-            var service = services.GetRequiredService<ServiceC>();
-            service.Count++;
         }
 
         public Task StartAsync(IServiceProvider services, CancellationToken cancellationToken)

@@ -9,12 +9,11 @@
         <Authors>github.com/nandel</Authors>
         <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>0.0.4</Version>
+        <Version>3.1.13.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.13" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.13" />
     </ItemGroup>
-
 </Project>

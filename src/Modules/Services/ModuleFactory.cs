@@ -46,6 +46,11 @@ namespace Nandel.Modules
                         return Activator.CreateInstance(type);
                     }
 
+                    if (parameters.Length > services.Count())
+                    {
+                        continue;
+                    }
+
                     var args = parameters
                         .Select(parameter => services.FirstOrDefault(x => parameter.ParameterType.IsInstanceOfType(x)))
                         .Where(arg => arg is not null)

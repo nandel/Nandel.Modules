@@ -2,28 +2,18 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-
         <IsPackable>true</IsPackable>
-
         <AssemblyName>Nandel.Modules.AspNetCore</AssemblyName>
-
         <RootNamespace>Nandel.Modules.AspNetCore</RootNamespace>
-
         <OutputType>Library</OutputType>
-
         <LangVersion>9</LangVersion>
-
         <Version>0.0.4</Version>
-
         <Authors>github.com/nandel</Authors>
-
         <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
-
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.13" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.13" />
     </ItemGroup>
 

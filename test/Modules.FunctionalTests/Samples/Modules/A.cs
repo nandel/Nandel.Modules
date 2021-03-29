@@ -4,10 +4,13 @@ using Nandel.Modules;
 
 namespace Modules.FunctionalTests.Samples.Modules
 {
-    [DependsOn(typeof(B), typeof(C))]
+    [DependsOn(
+        typeof(C), 
+        typeof(B)
+        )]
     public class A : IModule
     {
-        public void RegisterServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ServiceA>();
         }
