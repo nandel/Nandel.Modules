@@ -22,7 +22,7 @@ using Nandel.Modules;
     )]
 class A : IModule, IHasStart, IHasStop
 {
-    public void RegisterServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
         // Here comes module A registration
     }
