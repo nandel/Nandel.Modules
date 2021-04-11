@@ -43,17 +43,17 @@ class A : IModule, IHasStart, IHasStop
 [DependsOn(typeof(C))]
 class B : IModule
 {
-    public void RegisterServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
-        // Here comes module A registration
+        // Here comes module B registration
     }
 }
 
 class C : IModule 
 {
-    public void RegisterServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
-        // Here comes module A registration
+        // Here comes module B registration
     }
 }
 ```
