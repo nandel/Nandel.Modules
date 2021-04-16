@@ -74,6 +74,7 @@ namespace Nandel.Modules
             return this
                 .SelectMany(node => node.GetNodes())
                 .Distinct()
+                .ToList()
                 ;
         }
         

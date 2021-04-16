@@ -4,9 +4,9 @@ using Modules.FunctionalTests.Samples.Modules;
 using Nandel.Modules;
 using Xunit;
 
-namespace Modules.FunctionalTests
+namespace Modules.FunctionalTests.DependencyInjection
 {
-    public class HelpersTests
+    public class DependencyInjectionExtensionsTests
     {
         /// <summary>
         /// Should register all services

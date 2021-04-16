@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Nandel.Modules
 {
-    public static class Helpers
+    public static class DependencyInjectionExtensions
     {
         /// <summary>
         /// Add modules to current ServiceCollection
@@ -25,11 +25,8 @@ namespace Nandel.Modules
 
             if (dependencies is null)
             {
-                dependencies = new DependencyTree(factory, moduleTypes);                                
+                dependencies = new DependencyTree(factory);                                
                 services.AddSingleton<IDependencyNode>(dependencies); // add first to re-use the same ModuleFactory instance  
-                dependencies.ConfigureServices(services);
-                
-                return services;
             }
 
             dependencies.AddRange(moduleTypes);
