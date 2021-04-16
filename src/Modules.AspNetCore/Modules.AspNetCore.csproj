@@ -7,7 +7,7 @@
         <RootNamespace>Nandel.Modules.AspNetCore</RootNamespace>
         <OutputType>Library</OutputType>
         <LangVersion>9</LangVersion>
-        <Version>3.1.13.1</Version>
+        <Version>3.1.13.2</Version>
         <Authors>github.com/nandel</Authors>
         <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
