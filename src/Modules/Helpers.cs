@@ -25,10 +25,9 @@ namespace Nandel.Modules
 
             if (dependencies is null)
             {
-                dependencies = new DependencyTree(factory, moduleTypes);
+                dependencies = new DependencyTree(factory, moduleTypes);                                
+                services.AddSingleton<IDependencyNode>(dependencies); // add first to re-use the same ModuleFactory instance  
                 dependencies.ConfigureServices(services);
-                
-                services.AddSingleton<IDependencyNode>(dependencies);
                 
                 return services;
             }
