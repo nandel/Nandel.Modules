@@ -1,20 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <IsPackable>true</IsPackable>
+        <Title>Nandel.Modules.AspNetCore</Title>
         <AssemblyName>Nandel.Modules.AspNetCore</AssemblyName>
         <RootNamespace>Nandel.Modules.AspNetCore</RootNamespace>
-        <OutputType>Library</OutputType>
-        <LangVersion>9</LangVersion>
-        <Version>3.1.13.2</Version>
-        <Authors>github.com/nandel</Authors>
-        <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
-
+    
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.13" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>

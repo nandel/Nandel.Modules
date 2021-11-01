@@ -6,6 +6,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.FunctionalTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.AspNetCore", "src\Modules.AspNetCore\Modules.AspNetCore.csproj", "{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CA9FF9D5-B774-422B-A623-985FBB7A4C85}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.props = src\Directory.Build.props
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{03654289-61B0-4C11-889E-95C0A8126DE5}"
+ProjectSection(SolutionItems) = preProject
+	test\Directory.Build.props = test\Directory.Build.props
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +34,10 @@ Global
 		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A7AE84A6-8C9E-47FA-9BAB-1EFB025AB89B} = {CA9FF9D5-B774-422B-A623-985FBB7A4C85}
+		{57AC87F2-5D4E-424E-B2BC-C5689B62BC0B} = {CA9FF9D5-B774-422B-A623-985FBB7A4C85}
+		{D3233DEB-C31E-49B0-AC81-30A68B02C09D} = {03654289-61B0-4C11-889E-95C0A8126DE5}
 	EndGlobalSection
 EndGlobal

@@ -44,17 +44,6 @@ namespace Nandel.Modules
             Dependencies.AddRange(dependencies);
         }
 
-        private T GetModuleInstance<T>() where T : class
-        {
-            if (_moduleInstance is null)
-            {
-                _moduleInstance = _factory.CreateInstance(ModuleType);
-            }
-
-            return _moduleInstance as T;
-        }
-
-        
         public IDependencyNode FindNode(Type moduleType)
         {
             if (ModuleType == moduleType)
@@ -73,14 +62,14 @@ namespace Nandel.Modules
                 ;
         }
         
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices<TServiceCollection>(TServiceCollection services)
         {
             if (_registred) return;
 
             _registred = true;
             
             Dependencies.ConfigureServices(services);
-            GetModuleInstance<IModule>().ConfigureServices(services);
+            GetModuleInstance<IModule<TServiceCollection>>().ConfigureServices(services);
         }
 
         public async Task StopAsync(IServiceProvider services, CancellationToken cancellationToken)
@@ -123,6 +112,16 @@ namespace Nandel.Modules
             }
 
             methods.First().Invoke(GetModuleInstance<T>(), args);
+        }
+        
+        private T GetModuleInstance<T>() where T : class
+        {
+            if (_moduleInstance is null)
+            {
+                _moduleInstance = _factory.CreateInstance(ModuleType);
+            }
+
+            return _moduleInstance as T;
         }
     }
 }

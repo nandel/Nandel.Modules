@@ -78,7 +78,7 @@ namespace Nandel.Modules
                 ;
         }
         
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices<TServiceCollection>(TServiceCollection services)
         {
             foreach (var node in GetNodes())
             {

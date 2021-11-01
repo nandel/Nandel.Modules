@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Nandel.Modules
 {
     /// <summary>
     /// representation of a dependancy
     /// </summary>
-    public interface IDependencyNode : IModule, IHasStart, IHasStop
+    public interface IDependencyNode : IHasStart, IHasStop
     {
         /// <summary>
         /// Literaly the root dependency (Use this when need operate thought all the tree)
@@ -26,6 +25,13 @@ namespace Nandel.Modules
         /// </summary>
         /// <returns></returns>
         IEnumerable<IDependencyNode> GetNodes();
+
+        /// <summary>
+        /// Configure services for this node
+        /// </summary>
+        /// <param name="services"></param>
+        /// <typeparam name="TServiceCollection"></typeparam>
+        void ConfigureServices<TServiceCollection>(TServiceCollection services);
 
         /// <summary>
         /// Invoke a contract

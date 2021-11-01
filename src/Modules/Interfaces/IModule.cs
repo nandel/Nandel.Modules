@@ -1,16 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Nandel.Modules
+﻿namespace Nandel.Modules
 {
     /// <summary>
     /// Represents a module. Use DependsOnAttribute to define dependencies
     /// </summary>
-    public interface IModule
+    /// <typeparam name="TServiceCollection">Container for services registration</typeparam>
+    public interface IModule<in TServiceCollection>
     {
         /// <summary>
         /// Register services for this module
         /// </summary>
         /// <param name="services"></param>
-        void ConfigureServices(IServiceCollection services);
+        void ConfigureServices(TServiceCollection services);
     }
 }

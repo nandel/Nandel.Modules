@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Nandel.Modules
 {
-    public static class DependencyInjectionExtensions
+    public static class ServiceCollectionExtensions
     {
         /// <summary>
         /// Add modules to current ServiceCollection
@@ -70,36 +70,6 @@ namespace Nandel.Modules
         public static IServiceCollection AddModule<T>(this IServiceCollection services, IEnumerable<object> factoryServices)
         {
             return AddModules(services, new ModuleFactory(factoryServices), typeof(T));
-        }
-
-        /// <summary>
-        /// Invoke module.StartAsync(IServiceProvider, CancellationToken) of every module registred
-        /// </summary>
-        /// <param name="services">Collection of services</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public static async Task StartModulesAsync(this IServiceProvider services, CancellationToken cancellationToken)
-        {
-            var dependencies = services.GetServices<IDependencyNode>();
-            foreach (var dependency in dependencies)
-            {
-                await dependency.StartAsync(services, cancellationToken);
-            }
-        }
-
-        /// <summary>
-        /// Invoke module.StopAsync(IServiceProvvider, CancellationToken) of every module registred
-        /// </summary>
-        /// <param name="services">Collection of services</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public static async Task StopModulesAsync(this IServiceProvider services, CancellationToken cancellationToken)
-        {
-            var dependencies = services.GetServices<IDependencyNode>();
-            foreach (var dependency in dependencies)
-            {
-                await dependency.StopAsync(services, cancellationToken);
-            }
         }
     }
 }
