@@ -26,6 +26,7 @@ jobs:
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/Modules/Modules.csproj
+        VERSION_FILE_PATH: src/Directory.Build.props
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
         
     - name: Publish Nandel.Modules.AspNetCore
@@ -33,4 +34,5 @@ jobs:
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/Modules.AspNetCore/Modules.AspNetCore.csproj
+        VERSION_FILE_PATH: src/Directory.Build.props
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
