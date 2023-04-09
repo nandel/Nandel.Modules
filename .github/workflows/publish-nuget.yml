@@ -22,7 +22,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       
     - name: Publish Nandel.Modules
-      uses: brandedoutcast/publish-nuget@v2.5.5
+      uses: Rebel028/publish-nuget@v2.8.0
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/Modules/Modules.csproj
@@ -30,7 +30,7 @@ jobs:
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
         
     - name: Publish Nandel.Modules.AspNetCore
-      uses: brandedoutcast/publish-nuget@v2.5.5
+      uses: Rebel028/publish-nuget@v2.8.0
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: src/Modules.AspNetCore/Modules.AspNetCore.csproj
