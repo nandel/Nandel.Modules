@@ -1,40 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Nandel.Modules
-{
-    public static class ServiceProviderExtensions
-    {
-        /// <summary>
-        /// Invoke module.StartAsync(IServiceProvider, CancellationToken) of every module registred
-        /// </summary>
-        /// <param name="services">Collection of services</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public static async Task StartModulesAsync(this IServiceProvider services, CancellationToken cancellationToken)
-        {
-            var dependencies = services.GetServices<IDependencyNode>();
-            foreach (var dependency in dependencies)
-            {
-                await dependency.StartAsync(services, cancellationToken);
-            }
-        }
+namespace Nandel.Modules;
 
-        /// <summary>
-        /// Invoke module.StopAsync(IServiceProvvider, CancellationToken) of every module registred
-        /// </summary>
-        /// <param name="services">Collection of services</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public static async Task StopModulesAsync(this IServiceProvider services, CancellationToken cancellationToken)
+public static class ServiceProviderExtensions
+{
+    public static async Task StartModulesAsync(this IServiceProvider services, CancellationToken cancellationToken)
+    {
+        var controllers = GetDependencyControllers(services);
+        foreach (var controller in controllers)
         {
-            var dependencies = services.GetServices<IDependencyNode>();
-            foreach (var dependency in dependencies)
-            {
-                await dependency.StopAsync(services, cancellationToken);
-            }
+            await controller.StartAsync(services, cancellationToken);
         }
+    }
+    
+    public static async Task StopModulesAsync(this IServiceProvider services, CancellationToken cancellationToken)
+    {
+        var controllers = GetDependencyControllers(services);
+        foreach (var controller in controllers)
+        {
+            await controller.StopAsync(services, cancellationToken);
+        }
+    }
+
+    public static void InvokeModulesContract<T>(this IServiceProvider services, params object[] args) where T: class
+    {
+        var controllers = GetDependencyControllers(services);
+        foreach (var controller in controllers)
+        {
+            controller.Invoke<T>(args);
+        }
+    }
+
+    private static IEnumerable<DependencyController> GetDependencyControllers(IServiceProvider services)
+    {
+        var dependencyNode = services.GetRequiredService<DependencyNode>();
+        var controllers = dependencyNode.AsEnumerable()
+            .Select(x => x.Controller);
+
+        return controllers;
     }
 }

@@ -2,57 +2,55 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Nandel.Modules.AspNetCore
+namespace Nandel.Modules.AspNetCore;
+
+public static class Helpers
 {
-    public static class Helpers
+    /// <summary>
+    /// Register modules as hosted services to use IHasStart and IHasStart on aspnet architecture
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddModulesHostedService(this IServiceCollection services)
     {
-        /// <summary>
-        /// Register modules as hosted services to use IHasStart and IHasStart on aspnet architecture
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddModulesHostedService(this IServiceCollection services)
-        {
-            services.AddHostedService<ModulesHostedService>();
+        return services.AddHostedService<ModulesHostedService>();
+    }
 
-            return services;
-        }
-
-        /// <summary>
-        /// Add the modules in the current host services
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="moduleTypes"></param>
-        /// <returns></returns>
-        public static IHostBuilder AddModules(this IHostBuilder builder, params Type[] moduleTypes)
+    /// <summary>
+    /// Add the modules in the current host services
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="moduleTypes"></param>
+    /// <returns></returns>
+    public static IHostBuilder AddModules(this IHostBuilder builder, params Type[] moduleTypes)
+    {
+        builder.ConfigureServices((context, services) =>
         {
-            builder.ConfigureServices((context, services) =>
+            services.AddRootModule<AspNetCoreRootModule>(new object[]
             {
-                services.AddModules(options =>
-                {
-                    options.Modules = moduleTypes;
-                    options.Services = new object[]
-                    {
-                        context.Configuration,
-                        context.HostingEnvironment
-                    };
-                });
-                
-                services.AddModulesHostedService();
+                context.Configuration,
+                context.HostingEnvironment
             });
+            
+            foreach (var moduleType in moduleTypes)
+            {
+                services.AddModule(moduleType);
+            }
 
-            return builder;
-        }
+            services.AddModulesHostedService();
+        });
 
-        /// <summary>
-        /// Add the module in the current host services
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static IHostBuilder AddModule<T>(this IHostBuilder builder)
-        {
-            return AddModules(builder, typeof(T));
-        }
+        return builder;
+    }
+
+    /// <summary>
+    /// Add the module in the current host services
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static IHostBuilder AddModule<T>(this IHostBuilder builder)
+    {
+        return AddModules(builder, typeof(T));
     }
 }

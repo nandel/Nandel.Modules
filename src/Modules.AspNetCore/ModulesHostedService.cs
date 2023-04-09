@@ -9,28 +9,20 @@ namespace Nandel.Modules.AspNetCore
     public class ModulesHostedService : IHostedService
     {
         private readonly IServiceProvider _services;
-        private readonly IEnumerable<IDependencyNode> _dependencies;
 
-        public ModulesHostedService(IServiceProvider services, IEnumerable<IDependencyNode> dependencies)
+        public ModulesHostedService(IServiceProvider services)
         {
             _services = services;
-            _dependencies = dependencies;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            foreach (var dependency in _dependencies)
-            {
-                await dependency.StartAsync(_services, cancellationToken);
-            }
+            await _services.StartModulesAsync(cancellationToken);
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            foreach (var dependency in _dependencies)
-            {
-                await dependency.StopAsync(_services, cancellationToken);
-            }
+            await _services.StopModulesAsync(cancellationToken);
         }
     }
 }

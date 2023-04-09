@@ -1,7 +1,5 @@
-﻿namespace Modules.FunctionalTests.Samples.Services
+﻿namespace Nandel.Modules.FunctionalTests.Samples.Services;
+
+public class ServiceA
 {
-    public class ServiceA
-    {
-        
-    }
 }

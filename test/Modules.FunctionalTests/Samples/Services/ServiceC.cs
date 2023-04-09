@@ -1,7 +1,6 @@
-﻿namespace Modules.FunctionalTests.Samples.Services
+﻿namespace Nandel.Modules.FunctionalTests.Samples.Services;
+
+public class ServiceC
 {
-    public class ServiceC
-    {
-        public int Count { get; set; }
-    }
+    public int Count { get; set; }
 }

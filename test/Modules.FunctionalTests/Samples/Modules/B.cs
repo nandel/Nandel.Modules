@@ -1,15 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Modules.FunctionalTests.Samples.Services;
-using Nandel.Modules;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Nandel.Modules.FunctionalTests.Samples.Services;
 
-namespace Modules.FunctionalTests.Samples.Modules
+namespace Nandel.Modules.FunctionalTests.Samples.Modules;
+
+[DependsOn(typeof(C))]
+public class B : IModule
 {
-    [DependsOn(typeof(C))]
-    public class B : IModule
+    public void ConfigureServices(IServiceCollection services)
     {
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddTransient<ServiceB>();
-        }
+        services.TryAddTransient<ServiceB>();
     }
 }

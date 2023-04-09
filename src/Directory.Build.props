@@ -1,8 +1,8 @@
 <Project>
     
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <LangVersion>9</LangVersion>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>10</LangVersion>
 
         <Authors>github.com/nandel</Authors>
         <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
@@ -10,7 +10,7 @@
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-        <Version>5.0.0</Version>
+        <Version>6.0.0</Version>
     </PropertyGroup>
     
 </Project>
