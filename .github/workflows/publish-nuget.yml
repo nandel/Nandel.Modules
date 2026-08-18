@@ -9,30 +9,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --configuration Release
 
-    - name: Publish Nandel.Modules
-      uses: Rebel028/publish-nuget@v2.8.0
-      with:
-        # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: src/Modules/Modules.csproj
-        VERSION_FILE_PATH: src/Directory.Build.props
-        NUGET_KEY: ${{ secrets.NUGET_KEY }}
+    - name: Pack
+      run: dotnet pack --no-build --configuration Release --output ./artifacts
 
-    - name: Publish Nandel.Modules.AspNetCore
-      uses: Rebel028/publish-nuget@v2.8.0
-      with:
-        # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: src/Modules.AspNetCore/Modules.AspNetCore.csproj
-        VERSION_FILE_PATH: src/Directory.Build.props
-        NUGET_KEY: ${{ secrets.NUGET_KEY }}
+    - name: Push to NuGet
+      run: dotnet nuget push "./artifacts/*.nupkg" --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
