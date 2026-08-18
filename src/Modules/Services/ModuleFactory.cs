@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +17,7 @@ public class ModuleFactory
     /// <summary>
     /// Function on how modules are created
     /// </summary>
-    public Func<Type, object> CreateInstance { get; }
+    public Func<Type, object?> CreateInstance { get; }
 
     /// <summary>
     /// Ctor
@@ -34,7 +34,7 @@ public class ModuleFactory
     /// <exception cref="InvalidOperationException"></exception>
     public ModuleFactory(IEnumerable<object> services)
     {
-        var servicesArray = services as object[] ?? services?.ToArray() ?? Array.Empty<object>();
+        var servicesArray = services as object[] ?? services.ToArray();
 
         CreateInstance = (type) =>
         {

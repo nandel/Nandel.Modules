@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ public class DependencyController
     public DependencyController(Type moduleType, ModuleFactory factory)
     {
         _moduleType = moduleType;
-        _moduleInstance = factory.CreateInstance(moduleType);
+        _moduleInstance = factory.CreateInstance(moduleType) ?? throw new InvalidOperationException($"Can't instantiate {moduleType}");
     }
 
     private bool _configureServicesInvoked;
@@ -46,11 +46,11 @@ public class DependencyController
 
         return Task.CompletedTask;
     }
-    
+
     public void Invoke<T>(params object[] args) where T : class
     {
         if (!typeof(T).IsAssignableFrom(_moduleType)) return;
-            
+
         var methods = typeof(T).GetMethods();
         if (methods.Length != 1)
         {
