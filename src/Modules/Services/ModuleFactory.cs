@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +7,7 @@ namespace Nandel.Modules;
 /// <summary>
 /// How module objects are created
 /// </summary>
-public class ModuleFactory
+public sealed class ModuleFactory
 {
     /// <summary>
     /// Default instance of factory

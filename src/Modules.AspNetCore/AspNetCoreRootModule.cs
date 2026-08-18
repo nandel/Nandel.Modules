@@ -2,7 +2,7 @@
 
 namespace Nandel.Modules.AspNetCore;
 
-public class AspNetCoreRootModule : IModule<IServiceCollection>
+public sealed class AspNetCoreRootModule : IModule<IServiceCollection>
 {
     public void ConfigureServices(IServiceCollection services)
     {

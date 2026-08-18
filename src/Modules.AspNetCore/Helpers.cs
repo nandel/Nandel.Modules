@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -26,12 +26,8 @@ public static class Helpers
     {
         builder.ConfigureServices((context, services) =>
         {
-            services.AddRootModule<AspNetCoreRootModule>(new object[]
-            {
-                context.Configuration,
-                context.HostingEnvironment
-            });
-            
+            services.AddRootModule<AspNetCoreRootModule>([context.Configuration, context.HostingEnvironment]);
+
             foreach (var moduleType in moduleTypes)
             {
                 services.AddModule(moduleType);

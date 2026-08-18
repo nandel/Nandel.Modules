@@ -1,21 +1,13 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nandel.Modules;
 
-public class DependencyController
+public sealed class DependencyController(Type moduleType, ModuleFactory factory)
 {
-    private readonly Type _moduleType;
-    private readonly object _moduleInstance;
-
-    public DependencyController(Type moduleType, ModuleFactory factory)
-    {
-        _moduleType = moduleType;
-        _moduleInstance = factory.CreateInstance(moduleType) ?? throw new InvalidOperationException($"Can't instantiate {moduleType}");
-    }
-
+    private readonly object _moduleInstance = factory.CreateInstance(moduleType) ?? throw new InvalidOperationException($"Can't instantiate {moduleType}");
     private bool _configureServicesInvoked;
 
     public void ConfigureServices<T>(T services)
@@ -46,10 +38,10 @@ public class DependencyController
 
         return Task.CompletedTask;
     }
-
+    
     public void Invoke<T>(params object[] args) where T : class
     {
-        if (!typeof(T).IsAssignableFrom(_moduleType)) return;
+        if (!typeof(T).IsAssignableFrom(moduleType)) return;
 
         var methods = typeof(T).GetMethods();
         if (methods.Length != 1)

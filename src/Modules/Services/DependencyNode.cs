@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Nandel.Modules;
 
-public class DependencyNode
+public sealed class DependencyNode
 {
     public DependencyNode(Type moduleType, ModuleFactory moduleFactory)
     {
@@ -12,10 +12,8 @@ public class DependencyNode
         ModuleType = moduleType;
         ModuleFactory = moduleFactory;
         Root = this;
-        Dependencies = new List<DependencyNode>();
 
-        DependsOnAttribute.FindDependencies(moduleType)
-            .ForEach(AddDependencyNode);
+        InitializeDependencies(moduleType);
     }
 
     private DependencyNode(Type moduleType, ModuleFactory moduleFactory, DependencyNode root)
@@ -32,9 +30,7 @@ public class DependencyNode
         }
         else
         {
-            Dependencies = new List<DependencyNode>();
-            DependsOnAttribute.FindDependencies(moduleType)
-                .ForEach(AddDependencyNode);
+            InitializeDependencies(moduleType);
         }
     }
 
@@ -42,7 +38,13 @@ public class DependencyNode
     public Type ModuleType { get; }
     public ModuleFactory ModuleFactory { get; }
     public DependencyNode Root { get; }
-    public IList<DependencyNode> Dependencies { get; }
+    public IList<DependencyNode> Dependencies { get; } = [];
+
+    private void InitializeDependencies(Type moduleType)
+    {
+        DependsOnAttribute.FindDependencies(moduleType)
+            .ForEach(AddDependencyNode);
+    }
 
     public void AddDependencyNode(Type moduleType)
     {
@@ -51,7 +53,7 @@ public class DependencyNode
 
     public IEnumerable<DependencyNode> AsEnumerable()
     {
-        return AsEnumerableRecursively(new List<Type>());
+        return AsEnumerableRecursively([]);
     }
 
     public DependencyNode? FindNodeByModuleType(Type moduleType)
@@ -82,9 +84,9 @@ public class DependencyNode
         {
             yield break;
         }
-
+        
         visited.Add(ModuleType);
-
+        
         foreach (var dependencyNode in Dependencies)
         {
             foreach (var dependency in dependencyNode.AsEnumerableRecursively(visited))
@@ -92,7 +94,7 @@ public class DependencyNode
                 yield return dependency;
             }
         }
-
+        
         yield return this;
     }
 }
