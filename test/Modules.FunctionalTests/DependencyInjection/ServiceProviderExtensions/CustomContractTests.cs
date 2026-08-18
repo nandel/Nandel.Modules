@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Nandel.Modules.FunctionalTests.DependencyInjection.ServiceProviderExtensions;
@@ -20,6 +21,42 @@ public class CustomContractTests
 
         // assert
         Assert.Equal(2, counter.Count);
+    }
+
+    [Fact]
+    public void Invoke_WithContractDefiningMoreThanOneMethod_ShouldThrow()
+    {
+        // arrange
+        var services = new ServiceCollection()
+            .AddRootModule<MultiMethodModule>()
+            .BuildServiceProvider();
+
+        // act
+        void Act() => services.InvokeModulesContract<IMultiMethodContract>();
+
+        // assert
+        Assert.Throws<InvalidOperationException>(Act);
+    }
+
+    private interface IMultiMethodContract
+    {
+        void First();
+        void Second();
+    }
+
+    private class MultiMethodModule : IModule, IMultiMethodContract
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+        }
+
+        public void First()
+        {
+        }
+
+        public void Second()
+        {
+        }
     }
 
     private interface ICount
