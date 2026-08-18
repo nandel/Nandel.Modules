@@ -13,14 +13,14 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: '10.0.x'
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      
+
     - name: Publish Nandel.Modules
       uses: Rebel028/publish-nuget@v2.8.0
       with:
@@ -28,7 +28,7 @@ jobs:
         PROJECT_FILE_PATH: src/Modules/Modules.csproj
         VERSION_FILE_PATH: src/Directory.Build.props
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
-        
+
     - name: Publish Nandel.Modules.AspNetCore
       uses: Rebel028/publish-nuget@v2.8.0
       with:
