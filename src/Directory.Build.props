@@ -1,16 +1,28 @@
 <Project>
-    
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <LangVersion>10</LangVersion>
 
-        <Authors>github.com/nandel</Authors>
-        <PackageProjectUrl>github.com/nandel/Nandel.Modules</PackageProjectUrl>
+    <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+
+        <Description>Lightweight module abstraction on top of Microsoft.Extensions.DependencyInjection, with dependency ordering and optional start/stop lifecycle hooks.</Description>
+        <Authors>nandel</Authors>
+        <Copyright>Copyright (c) 2021 Fernando Ferreira de Souza</Copyright>
+        <PackageProjectUrl>https://github.com/nandel/Nandel.Modules</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/nandel/Nandel.Modules</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>dependency-injection;modules;di;aspnetcore;hosting</PackageTags>
 
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-        <Version>9.0.0</Version>
+        <Version>10.0.0</Version>
     </PropertyGroup>
-    
+
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)../README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
 </Project>

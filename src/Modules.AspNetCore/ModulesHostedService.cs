@@ -4,25 +4,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 
-namespace Nandel.Modules.AspNetCore
+namespace Nandel.Modules.AspNetCore;
+
+public sealed class ModulesHostedService(IServiceProvider services) : IHostedService
 {
-    public class ModulesHostedService : IHostedService
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        private readonly IServiceProvider _services;
+        await services.StartModulesAsync(cancellationToken);
+    }
 
-        public ModulesHostedService(IServiceProvider services)
-        {
-            _services = services;
-        }
-
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
-            await _services.StartModulesAsync(cancellationToken);
-        }
-
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {
-            await _services.StopModulesAsync(cancellationToken);
-        }
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        await services.StopModulesAsync(cancellationToken);
     }
 }

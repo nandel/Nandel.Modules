@@ -64,7 +64,7 @@ public static class ServiceCollectionExtensions
         return AddModule(services, typeof(TModule));
     }
 
-    private static DependencyNode GetRootDependencyNode(IServiceCollection services)
+    private static DependencyNode? GetRootDependencyNode(IServiceCollection services)
     {
         return services.FirstOrDefault(x => x.ServiceType == typeof(DependencyNode))?.ImplementationInstance as DependencyNode;
     }

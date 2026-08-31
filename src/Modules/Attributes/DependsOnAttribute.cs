@@ -8,7 +8,7 @@ namespace Nandel.Modules;
 /// Define what modules the current module class depends on
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
-public class DependsOnAttribute : Attribute
+public sealed class DependsOnAttribute : Attribute
 {
     /// <summary>
     /// Ctor
@@ -23,7 +23,7 @@ public class DependsOnAttribute : Attribute
     /// List of modules that the current class depends on
     /// </summary>
     public ICollection<Type> ModuleTypes { get; }
-    
+
     /// <summary>
     /// Find the dependencies of a module using this attribute
     /// </summary>
